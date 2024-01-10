@@ -61,7 +61,7 @@ signal_values_for_timestamps=[20,30,40, 50,600, 70, 80, 70, 60, 50,40, 30 ]
 dict = {'ds': list_of_timestamps, 'y': signal_values_for_timestamps} 
 df = pd.DataFrame(dict)
 
-quality_report = check_quality(df, 12, '2023-12-31')
+quality_report = check_quality(df, MAX_LEN_MONTHS, END_OF_TIME)
 print(quality_report)
 ```
 
@@ -73,11 +73,11 @@ The `check_quality` function evaluates the quality of a time-series signal. It a
 #### Syntax
 
 ```python
-timeseriesqualitycheck.check_quality(signal, MAX_LEN_MONTHS, END_OF_TIME, snr_limit=3.5)
+timeseriesqualitycheck.check_quality(signal_df, MAX_LEN_MONTHS, END_OF_TIME, tpcs_limit_for_snr_calculationt=3.5)
 ```
 
 #### Parameters
-- **signal** (`pd.DataFrame`): A pandas DataFrame containing the time-series data with 'y' and 'ds' columns.
+- **signal_df** (`pd.DataFrame`): A pandas DataFrame containing the time-series data with 'y' and 'ds' columns.
 - **MAX_LEN_MONTHS** (`int`): The maximum length of the time series in months.
 - **END_OF_TIME** (`datetime`): The end date for the time series data.
 - **snr_limit** (`float`, optional): The threshold for the signal-to-noise ratio. Default is 3.5.
