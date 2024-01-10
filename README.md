@@ -7,55 +7,13 @@
 
 To install `timeseriesqualitycheck`, simply use pip:
 
-```bash
+```python
 pip install timeseriesqualitycheck
 ```
 
-## Usage
 
-### check_quality Function
 
-#### Description
-
-The `check_quality` function evaluates the quality of a time-series signal. It analyzes the signal for pattern consistency, contiguity, and noise levels to produce a comprehensive quality score.
-
-#### Syntax
-
-```python
-timeseriesqualitycheck.check_quality(signal, MAX_LEN_MONTHS, END_OF_TIME, snr_limit=3.5)
-```
-
-#### Parameters
-- **signal** (`pd.DataFrame`): A pandas DataFrame containing the time-series data with 'y' and 'ds' columns.
-- **MAX_LEN_MONTHS** (`int`): The maximum length of the time series in months.
-- **END_OF_TIME** (`datetime`): The end date for the time series data.
-- **snr_limit** (`float`, optional): The threshold for the signal-to-noise ratio. Default is 3.5.
-
-#### Returns
-- **dict**: A dictionary containing the cleanliness score, TPC and SNR features, and detailed scores.
-
-#### Example
-
-```python
-import pandas as pd
-from timeseriesqualitycheck import check_quality
-
-# Sample time-series data
-data = {'ds': ['2023-01-01', '2023-01-02', ...], 'y': [123, 150, ...]}
-signal = pd.DataFrame(data)
-
-# Perform quality check
-quality_report = check_quality(signal, 12, '2023-12-31')
-print(quality_report)
-```
-
-## Contributing
-Contributions to `timeseriesqualitycheck` are welcome. Please ensure that your code adheres to the project's coding standards and includes appropriate tests.
-
-## License
-This project is licensed under the [MIT License](LICENSE.txt).
-
-# Additional Notes on check_quality Function:
+### check_quality Function 
 
 - `check_quality` requires a signal input in pandas DataFrame format, with at least two columns:
   - `y`: column where the values of the signal are stored.
@@ -80,3 +38,59 @@ This project is licensed under the [MIT License](LICENSE.txt).
   }
   ```
   You can access any value you need; the final output key is `"cleaning_score"`.
+
+
+## Usage
+
+
+```python
+import pandas as pd
+from timeseriesqualitycheck import check_quality
+
+END_OF_TIME= pd.to_datetime("2021-05-01")
+MAX_LEN_MONTHS=13
+
+list_of_timestamps= ["2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01","2021-01-01", "2021-03-01","2021-04-01","2021-05-01" ]
+#notice that "2021-02-01" is missing
+list_of_timestamps= [pd.to_datetime(e) for  e in list_of_timestamps]
+
+signal_values_for_timestamps=[20,30,40, 50,600, 70, 80, 70, 60, 50,40, 30 ]
+#notice that we have an outlier(600) value
+
+
+dict = {'ds': list_of_timestamps, 'y': signal_values_for_timestamps} 
+df = pd.DataFrame(dict)
+
+quality_report = check_quality(df, 12, '2023-12-31')
+print(quality_report)
+```
+
+
+#### Description
+
+The `check_quality` function evaluates the quality of a time-series signal. It analyzes the signal for pattern consistency, contiguity, and noise levels to produce a comprehensive quality score.
+
+#### Syntax
+
+```python
+timeseriesqualitycheck.check_quality(signal, MAX_LEN_MONTHS, END_OF_TIME, snr_limit=3.5)
+```
+
+#### Parameters
+- **signal** (`pd.DataFrame`): A pandas DataFrame containing the time-series data with 'y' and 'ds' columns.
+- **MAX_LEN_MONTHS** (`int`): The maximum length of the time series in months.
+- **END_OF_TIME** (`datetime`): The end date for the time series data.
+- **snr_limit** (`float`, optional): The threshold for the signal-to-noise ratio. Default is 3.5.
+
+#### Returns
+- **dict**: A dictionary containing the cleanliness score, TPC and SNR features, and detailed scores.
+
+
+## Contributing
+Contributions to `timeseriesqualitycheck` are welcome. Please ensure that your code adheres to the project's coding standards and includes appropriate tests.
+
+## License
+This project is licensed under the [MIT License](LICENSE.txt).
+
+# Additional Notes on check_quality Function:
+

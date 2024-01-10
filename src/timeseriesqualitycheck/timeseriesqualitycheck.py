@@ -1,10 +1,8 @@
 import pandas as pd
-import numpy as np
+from .signal_to_noise_ratio import SignalNoiseRatio
+from time_pattern_cohesion_score import TPCS
 
-# from time_pattern_cohesion_score import TPCS
-from signal_to_noise_ratio import SignalNoiseRatio
-from tpcs import TPCS
-
+# tpcs, scipy, numpy, pandas,
 
 # check_quality requires a signal input pandas pd format. With at least 2 columns where y is where values are stored
 # and ds where date information is stores
