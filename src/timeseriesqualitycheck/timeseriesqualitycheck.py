@@ -51,7 +51,7 @@ def check_quality(signal, MAX_LEN_MONTHS, END_OF_TIME=None, tpcs_limit_for_snr_c
         tpcs = TPCS(x, MAX_LEN_MONTHS, END_OF_TIME=END_OF_TIME, debug=False, return_details=False)
     else:
         last_date=x[-1]
-        tpcs = TPCS(x, MAX_LEN_MONTHS, END_OF_TIME=last_date, debug=False, return_details=False)
+        tpcs = TPCS(x, MAX_LEN_MONTHS, END_OF_TIME=last_date, debug=False, return_details=True)
 
     TPC_score, tpcs_details = tpcs.calculate_TPCS(weights=weights, printing=False)
 
